@@ -10,12 +10,16 @@ Weight: 61 kg
 '''
 
 def openCSV():
-    col_count = 0
     csv_data = csv.reader(open('heightToShirtSize.csv','r'))
-    print(csv_data())
-    
-    #dataset = pandas.read_csv('heightToShirtSize.csv')
-    #print(dataset)
+    lines = list(csv_data)
+    cols = lines[0]
+    num_of_cols = len(cols)
+
+
+    for j in range(len(lines)):
+        j = j + 1
+        print(lines[j][0])
+
 
 def euclideanDistance(class1, class2, height, weight):
     '''
