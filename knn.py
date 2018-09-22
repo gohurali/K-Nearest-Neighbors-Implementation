@@ -17,19 +17,19 @@ def openCSV():
     heights = []
     weights = []
     sizes = []
-    for j in range(len(lines)):
-        # print(lines[j][0])
-        # print(lines[j][1])
-        heights.append(lines[j][0])
-        weights.append(lines[j][1])
-        sizes.append(lines[j][2])
+
+    for j in lines[1:]:#range(len(lines[1:])):
+        heights.append( int(j[0]) )
+        weights.append( int(j[1]) )
+        sizes.append(j[2] )
     
-    # print(heights)
-    # print(len(heights))
-    # print(weights)
-    # print(len(weights))
-    # print(sizes)
-    # print(len(sizes))
+    print(heights)
+    print(len(heights))
+    print(weights)
+    print(len(weights))
+    print(sizes)
+    print(len(sizes))
+    return heights, weights, sizes
 
 def euclideanDistance(class1, class2, height, weight):
     '''
@@ -40,15 +40,22 @@ def euclideanDistance(class1, class2, height, weight):
     :param: 
     '''
     distance = 0
-    for x in range(class1):
-        distance += ((pow( (height - class1[x]) ), 2) + (pow((weight - class2[x]),2)))
-    return math.sqrt(distance)
+    distances = []
+    for x in range(len(class1)):
+        distance += (( pow( (height - int(class1[x])), 2) + (pow((weight - int(class2[x])),2))))
+        distances.append(math.sqrt(distance))
+    
+    
+    return distances
 
 def main():
     #num = euclideanDistance()
     #print(num)
 
-    openCSV()
+    heights, weights, sizes = openCSV()
+    nums = euclideanDistance(heights, weights, 161, 61)
+    print(nums)
+    print(len(nums))
     pass
 
 if __name__ == "__main__":
