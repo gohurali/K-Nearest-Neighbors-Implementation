@@ -9,7 +9,7 @@ Height: 161 cm
 Weight: 61 kg
 '''
 
-def openCSV():
+def openCSV(split, training_set=[], test_set=[]):
     '''
     :param: split -- 0.67 standard split ratio
     :param: training_set array auto init'd
@@ -20,16 +20,16 @@ def openCSV():
     cols = lines[0]
     num_of_cols = len(cols)
 
-    heights = []
-    weights = []
-    sizes = []
+    for j in lines[1:]:
+        
+        if(random.random() < split):
+            training_set.append(j)
+        else:
+            test_set.append(j)
 
-    for j in lines[1:]:#range(len(lines[1:])):
-        heights.append( int(j[0]) )
-        weights.append( int(j[1]) )
-        sizes.append(j[2] )
-    
-    return heights, weights, sizes
+        # heights.append( int(j[0]) )
+        # weights.append( int(j[1]) )
+        # sizes.append(j[2] )
 
 def euclideanDistance(class1, class2, height, weight):
     '''
@@ -46,12 +46,30 @@ def euclideanDistance(class1, class2, height, weight):
         distances.append(math.sqrt(distance))
     return distances
 
+def getNeighbors(k):
+    '''
+    :param:
+    :param:
+    '''
+    return
+
 def main():
     #num = euclideanDistance()
     #print(num)
 
-    heights, weights, sizes = openCSV()
-    nums = euclideanDistance(heights, weights, 161, 61)
+    training_set = []
+    test_set = []
+    split = 0.67
+
+    # Open the CSV file and get arrays of data
+    openCSV(split, training_set, test_set)
+
+    print(training_set)
+    print()
+    print(test_set)
+
+    # Calculate the Euclidean Distance for each data point compared to the new data point
+    #nums = euclideanDistance(heights, weights, 161, 61)
     pass
 
 if __name__ == "__main__":
