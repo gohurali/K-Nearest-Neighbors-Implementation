@@ -36,8 +36,10 @@ def euclideanDistance(class1, class2, height, weight):
     Lets assume lenth of data for class 1 == class 2
     Calculating the Euclidean Distance between two points
     ED = SQRT( (new-class1)^2 + (new-class2)^2 )
-    :param: 
-    :param: 
+    :param: class1
+    :param: class2
+    :param: height
+    :param: weight
     '''
     distance = 0
     distances = []
@@ -69,7 +71,6 @@ def main():
     print(test_set)
 
     # Calculate the Euclidean Distance for each data point compared to the new data point
-    #nums = euclideanDistance(heights, weights, 161, 61)
     pass
 
 if __name__ == "__main__":

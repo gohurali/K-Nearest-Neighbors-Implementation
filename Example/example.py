@@ -20,9 +20,10 @@ def loadDataset(filename, split, trainingSet=[] , testSet=[]):
 
 def euclideanDistance(instance1, instance2, length):
 	distance = 0
+	print(instance1)
+	print(instance2)
 	for x in range(length):
 		print(str(instance1[x]) + " -- " + str(instance2[x]))
-		
 		distance += pow((instance1[x] - instance2[x]), 2)
 	return math.sqrt(distance)
 
