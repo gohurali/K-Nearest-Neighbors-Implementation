@@ -2,6 +2,7 @@ import numpy as np
 import math
 import csv
 import pandas
+import operator
 import random
 '''
 New Data:
@@ -31,29 +32,37 @@ def openCSV(split, training_set=[], test_set=[]):
         # weights.append( int(j[1]) )
         # sizes.append(j[2] )
 
-def euclideanDistance(class1, class2, height, weight):
+def euclideanDistance(instance1, instance2, length):
     '''
     Lets assume lenth of data for class 1 == class 2
     Calculating the Euclidean Distance between two points
     ED = SQRT( (new-class1)^2 + (new-class2)^2 )
-    :param: class1
-    :param: class2
-    :param: height
-    :param: weight
     '''
     distance = 0
-    distances = []
-    for x in range(len(class1)):
-        distance += (( pow( (height - int(class1[x])), 2) + (pow((weight - int(class2[x])),2))))
-        distances.append(math.sqrt(distance))
-    return distances
+    for i in range(length):
+        distance += pow((int(instance1[i]) - int(instance2[i])),2)
+    return math.sqrt(distance)
 
-def getNeighbors(k):
+    
+def getNeighbors(trainingSet, test_instance, k):
     '''
     :param:
     :param:
     '''
-    return
+    distances = []
+    # Get the length of the test set
+    length = (len(test_instance)) - 1
+
+    # Iterate through the training set
+    for x in range(len(trainingSet)):
+        dist = euclideanDistance(trainingSet[x], test_instance, length)
+        distances.append((trainingSet[x], dist))
+    distances.sort(key=operator.itemgetter(1))
+    #distances.sort()
+    neighbors = []
+    for x in range(k):
+        neighbors.append(distances[x][0])
+    return neighbors
 
 def main():
     #num = euclideanDistance()
@@ -66,11 +75,16 @@ def main():
     # Open the CSV file and get arrays of data
     openCSV(split, training_set, test_set)
 
+    print("training set")
     print(training_set)
     print()
+    print('testing set')
     print(test_set)
-
-    # Calculate the Euclidean Distance for each data point compared to the new data point
+    print()
+    k = 3
+    for x in range(len(test_set)):
+        neighbor = getNeighbors(training_set, test_set[x], k)
+        print(neighbor)
     pass
 
 if __name__ == "__main__":

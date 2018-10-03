@@ -52,6 +52,8 @@ def main():
 
     heights, weights, sizes = openCSV()
     nums = euclideanDistance(heights, weights, 161, 61)
+
+    print(nums)
     pass
 
 if __name__ == "__main__":
