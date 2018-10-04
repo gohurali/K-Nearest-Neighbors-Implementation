@@ -57,12 +57,31 @@ def getNeighbors(trainingSet, test_instance, k):
     for x in range(len(trainingSet)):
         dist = euclideanDistance(trainingSet[x], test_instance, length)
         distances.append((trainingSet[x], dist))
+    
     distances.sort(key=operator.itemgetter(1))
-    #distances.sort()
     neighbors = []
     for x in range(k):
         neighbors.append(distances[x][0])
     return neighbors
+
+
+def get_response(neighbors):
+    class_votes = {}
+    for x in range(len(neighbors)):
+        response = neighbors[x][-1]
+        if(response in class_votes):
+            class_votes[response] += 1
+        else:
+            class_votes[response] = 1
+    sortedVotes = sorted(class_votes.items(), key=operator.itemgetter(1), reverse=True)
+    return sortedVotes[0][0]
+
+def get_accuracy(testSet, predictions):
+    correct = 0
+    for x in range(len(testSet)):
+        if(testSet[x][-1] is predictions[x]):
+            correct += 1
+    return (correct/float(len(testSet))) * 100
 
 def main():
     #num = euclideanDistance()
@@ -82,9 +101,16 @@ def main():
     print(test_set)
     print()
     k = 3
+    predictions = []
     for x in range(len(test_set)):
         neighbor = getNeighbors(training_set, test_set[x], k)
         print(neighbor)
+        result = get_response(neighbor)
+        predictions.append(result)
+        print('> predicted=', result, ', actual=', test_set[x][-1])
+    accuracy = get_accuracy(test_set, predictions)
+    print('Accuracy: ', accuracy, '%')
+    
     pass
 
 if __name__ == "__main__":
